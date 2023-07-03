@@ -327,7 +327,7 @@ class Detect(Resource):
             print('success remove')
             return send_file(os.path.join(f"./runs/detect/{filename}", filename), mimetype='image/jpg', as_attachment=True, download_name=filename)
         else:
-            return {'message' : 'invalid file extension'},400
+            return {'message' : 'invalid file extensionn'},400
 
 
 @app.route("/realtime")

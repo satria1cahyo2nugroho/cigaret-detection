@@ -7,7 +7,7 @@ from yolov7.utils.datasets import LoadStreams
 from yolov7.utils.general import check_img_size, non_max_suppression, scale_coords
 from yolov7.utils.torch_utils import select_device
 
-# Set device
+# Set devicee
 device = select_device('')
 
 # Load model
