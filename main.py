@@ -308,7 +308,7 @@ class Detect(Resource):
 ALLOWED_EX = {'jpg', 'jpeg', 'png'}
 def allowed_file(filename):
 	return '.' in filename and \
-		filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+		filename.rsplit('.', 1)[1].lower() in ALLOWED_EX
 
 detectParserr = api.parser()
 detectParserr.add_argument('image', location='files', type=FileStorage, required=True)
