@@ -289,7 +289,7 @@ detectParser.add_argument('video', location='files', type=FileStorage, required=
 #        else:
 #            return {'message' : 'invalid file extension'},400
 
-@api.route('/detect')
+@api.route('/video')
 class Detect(Resource):
     @api.expect(detectParser)
     def post(self):
@@ -302,6 +302,30 @@ class Detect(Resource):
             os.remove(f'./video/{filename}')
             print('success remove')
             return send_file(os.path.join(f"./runs/detect/{filename}", filename), mimetype='video/mp4', as_attachment=True, download_name=filename)
+        else:
+            return {'message' : 'invalid file extension'},400
+
+ALLOWED_EX = {'jpg', 'jpeg', 'png'}
+def allowed_file(filename):
+	return '.' in filename and \
+		filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+detectParserr = api.parser()
+detectParserr.add_argument('image', location='files', type=FileStorage, required=True)
+
+@api.route('/image')
+class Detect(Resource):
+    @api.expect(detectParserr)
+    def post(self):
+        args = detectParserr.parse_args()
+        image = args['image']
+        if image and allowed_file(image.filename):
+            filename = secure_filename(image.filename)
+            image.save(os.path.join("./image/", filename))
+            subprocess.run(['python', 'detect.py', '--source', f'./image/{filename}', '--weights', 'best.pt','--conf', '0.3', '--name', f'{filename}'])
+            os.remove(f'./image/{filename}')
+            print('success remove')
+            return send_file(os.path.join(f"./runs/detect/{filename}", filename), mimetype='image/jpg', as_attachment=True, download_name=filename)
         else:
             return {'message' : 'invalid file extension'},400
 

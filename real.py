@@ -2,10 +2,11 @@ import cv2
 from datetime import datetime
 from ultralytics import YOLO
 
+
 model_path = 'C:\\Users\\satria\\Documents\\A Semester\\S6\\Web service\\flask_web\\best.pt'
 #model_path = 'C:\Users\satria\Documents\A Semester\S6\Web service\flask_web\best-.pt'
 
-# Load model
+# Load modelll
 model = YOLO(model_path)  # load a custom model
 
 threshold = 0.3

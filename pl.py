@@ -10,7 +10,7 @@ from yolov7.utils.torch_utils import select_device
 # Set device
 device = select_device('')
 
-# Load model
+# Load modelll
 model = attempt_load('best.pt', map_location=device)
 imgsz = check_img_size(640, s=model.stride.max())
 
