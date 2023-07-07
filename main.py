@@ -306,9 +306,9 @@ class Detect(Resource):
             return {'message' : 'invalid file extension'},400
 
 ALLOWED_EX = {'jpg', 'jpeg', 'png'}
-def allowed_file(filename):
-	return '.' in filename and \
-		filename.rsplit('.', 1)[1].lower() in ALLOWED_EX
+def allowed_filee(filenamee):
+	return '.' in filenamee and \
+		filenamee.rsplit('.', 1)[1].lower() in ALLOWED_EX
 
 detectParserr = api.parser()
 detectParserr.add_argument('image', location='files', type=FileStorage, required=True)
@@ -319,13 +319,13 @@ class Detect(Resource):
     def post(self):
         args = detectParserr.parse_args()
         image = args['image']
-        if image and allowed_file(image.filename):
-            filename = secure_filename(image.filename)
-            image.save(os.path.join("./image/", filename))
-            subprocess.run(['python', 'detect.py', '--source', f'./image/{filename}', '--weights', 'best.pt','--conf', '0.3', '--name', f'{filename}'])
-            os.remove(f'./image/{filename}')
+        if image and allowed_filee(image.filenamee):
+            filenamee = secure_filename(image.filenamee)
+            image.save(os.path.join("./image/", filenamee))
+            subprocess.run(['python', 'detect.py', '--source', f'./image/{filenamee}', '--weights', 'best.pt','--conf', '0.3', '--name', f'{filenamee}'])
+            os.remove(f'./image/{filenamee}')
             print('success remove')
-            return send_file(os.path.join(f"./runs/detect/{filename}", filename), mimetype='image/jpg', as_attachment=True, download_name=filename)
+            return send_file(os.path.join(f"./runs/detect/{filenamee}", filenamee), mimetype='image/jpg', as_attachment=True, download_name=filenamee)
         else:
             return {'message' : 'invalid file extensionn'},400
 
@@ -336,7 +336,7 @@ def hello_world():
 
 @app.route("/opencam", methods=['GET'])
 def opencam():
-    print("waittt opencammm")
+    print("wait open camera")
     subprocess.run(['python', 'detect.py', '--source', '0', '--weights', 'best.pt','--conf', '0.3'])
     return "done"
 
