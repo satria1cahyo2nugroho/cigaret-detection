@@ -319,8 +319,8 @@ class Detect(Resource):
     def post(self):
         args = detectParserr.parse_args()
         image = args['image']
-        if image and allowed_filee(image.filenamee):
-            filenamee = secure_filename(image.filenamee)
+        if image and allowed_filee(image.filename):
+            filenamee = secure_filename(image.filename)
             image.save(os.path.join("./image/", filenamee))
             subprocess.run(['python', 'detect.py', '--source', f'./image/{filenamee}', '--weights', 'best.pt','--conf', '0.3', '--name', f'{filenamee}'])
             os.remove(f'./image/{filenamee}')
